@@ -1,11 +1,11 @@
-var sportsOne = ["Golf", "Football", "Basketball"];
+"use strict";
+let sportsOne = ["Golf", "Football", "Basketball"];
 // for(let i = 0; i < sportsOne.length; i++){
 //     console.log(sportsOne[i]);
 // }
-for (var _i = 0, sportsOne_1 = sportsOne; _i < sportsOne_1.length; _i++) {
-    var tempSport = sportsOne_1[_i];
+for (let tempSport of sportsOne) {
     if (tempSport == "Football") {
-        console.log(tempSport + "Siuuu");
+        console.log(tempSport + " Siuuu");
     }
     else {
         console.log(tempSport);
