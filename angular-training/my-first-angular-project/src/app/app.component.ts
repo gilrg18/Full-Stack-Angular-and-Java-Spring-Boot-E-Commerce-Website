@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 
+//@Component is a decorator
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  //selector, templateUrl, styleUrls are @Component's decorator properties
+  selector: 'app-root', //html tag
+  templateUrl: './app.component.html', //related html to this component
+  styleUrls: ['./app.component.css'] //related css file to this component
 })
 export class AppComponent {
-  title = 'my-first-angular-project';
+  title = 'This is my first angular app :)';
+  firstName = 'Gil';
+  lastName = 'Ber';
 }
