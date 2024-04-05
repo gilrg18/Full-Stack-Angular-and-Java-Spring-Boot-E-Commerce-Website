@@ -7,7 +7,9 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService {
-  private baseUrl = 'http://localhost:8080/api/products';
+  
+  //by default Spring Data Rest only return the first 20 items, change page size to 100 with ?size=100
+  private baseUrl = 'http://localhost:8080/api/products?size=100';
 
   constructor(private httpClient: HttpClient) {}
 
