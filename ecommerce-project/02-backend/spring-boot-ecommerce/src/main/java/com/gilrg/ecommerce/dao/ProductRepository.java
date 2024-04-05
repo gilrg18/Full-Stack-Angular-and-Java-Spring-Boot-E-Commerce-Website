@@ -18,4 +18,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     //http://localhost:8080/api/products/search/findByCategoryId?id=?
     //Also, the "/search" is provided by Spring Data REST.
     // By default, any finder method defined in the repository will be exposed as an API.
+
+    Page<Product> findByNameContaining(@Param("name") String name, Pageable page);
+    //Behind the scenes spring will execute something like:
+    //Select * from product p where p.name LIKE CONCAT('%' :name , '%')
 }
