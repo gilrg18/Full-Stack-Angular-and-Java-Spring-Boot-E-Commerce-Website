@@ -13,7 +13,9 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getProductList(): Observable<Product[]> {
+  getProductList(theCategoryId: number): Observable<Product[]> {
+    //@TODO: need to build URL based on category id
+    
     //Returns an observable, Map the JSON data from Spring Data REST to Product array
     return this.httpClient
       .get<GetResponse>(this.baseUrl)
