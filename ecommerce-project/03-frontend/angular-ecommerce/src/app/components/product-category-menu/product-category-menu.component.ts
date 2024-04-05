@@ -18,7 +18,6 @@ export class ProductCategoryMenuComponent implements OnInit {
 
   listProductCategories() {
     //invoke the service
-    //TODO: implement getProductCategories()
     this.productService.getProductCategories().subscribe(
       data => {
         console.log('Product Categories= ' + data);
