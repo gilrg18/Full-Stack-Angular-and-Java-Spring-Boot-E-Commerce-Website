@@ -41,6 +41,7 @@ export class ProductListComponent implements OnInit {
       data => {
         //assign the data to the products array
         this.products = data;
+        console.log("Products:", this.products);
       }
     )
   }

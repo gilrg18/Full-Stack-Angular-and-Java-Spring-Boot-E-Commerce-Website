@@ -9,20 +9,20 @@ import { Observable, map } from 'rxjs';
 export class ProductService {
   
   //by default Spring Data Rest only return the first 20 items, change page size to 100 with ?size=100
-  private baseUrl = 'http://localhost:8080/api/products?size=100';
+  private baseUrl = 'http://localhost:8080/api/products';
 
   constructor(private httpClient: HttpClient) {}
 
   getProductList(theCategoryId: number): Observable<Product[]> {
-    //@TODO: need to build URL based on category id
-    
+    //build URL based on category id
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+    console.log(searchUrl);
     //Returns an observable, Map the JSON data from Spring Data REST to Product array
     return this.httpClient
-      .get<GetResponse>(this.baseUrl)
+      .get<GetResponse>(searchUrl)
       .pipe(map((response) => response._embedded.products));
   }
 }
-
 //Unwraps the JSON from Spring Data REST _embedded entry
 interface GetResponse {
   _embedded: {
