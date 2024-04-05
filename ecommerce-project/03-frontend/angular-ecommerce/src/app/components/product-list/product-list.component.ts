@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
   currentCategoryId: number = 1;
+  currentCategoryName: string = "";
   //Inject our product service to this component, Inject the ActivatedRoute
   //The current active route that loaded the component. Useful for accessing route parameters
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
@@ -31,9 +32,11 @@ export class ProductListComponent implements OnInit {
       //get the 'id' param string and convert string to a number using the '+' symbol
       // ! is the non-null assertion operator. It tells the compiler that the object is not null.
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id')!;
+      this.currentCategoryName = this.route.snapshot.paramMap.get('name')!;
     }else{
       //category id not available? set default id to 1
       this.currentCategoryId = 1;
+      this.currentCategoryName = 'Books'
     }
     //Method is invoked once you 'subscribe'
     //Now get the products for the given category id

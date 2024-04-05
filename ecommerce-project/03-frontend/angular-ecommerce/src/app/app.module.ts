@@ -10,7 +10,7 @@ import {Routes, RouterModule} from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 const routes: Routes = [
   //Path to match , when path matches - create a new instance of component
-  {path: 'category/:id', component: ProductListComponent},
+  {path: 'category/:id/:name', component: ProductListComponent},
   {path: 'category/', component: ProductListComponent},
   {path: 'products/', component: ProductListComponent},
   //When the path is empty, match the FULL path not just the prefix(default pathMatch value)
