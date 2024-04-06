@@ -6,9 +6,9 @@
     type="text"
     placeholder="Search for products ..."
     class="au-input au-input-xl"
-    (keyup.enter)="doSearch(myInput.value)"
+    (keyup.enter)="doSearch(myInput.value, $event)"
   />
   <button 
-  (click)="doSearch(myInput.value)"
+  (click)="doSearch(myInput.value, $event)"
   class="au-btn-submit">Search</button>
 </form>
