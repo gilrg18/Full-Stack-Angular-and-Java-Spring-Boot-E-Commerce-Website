@@ -42,7 +42,7 @@ export class ProductListComponent implements OnInit {
     this.productService.searchProducts(theKeyword).subscribe(
       data=>{
         this.products = data;
-        console.log(`Search data ${data}`);
+        console.log(`Search data ${JSON.stringify(data)}`);
       }
     )
   }

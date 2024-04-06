@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'search/:keyword', component: ProductListComponent},
   {path: 'category/:id/:name', component: ProductListComponent},
   {path: 'category/', component: ProductListComponent},
-  {path: 'products/', component: ProductListComponent},
+  {path: 'products', component: ProductListComponent},
   //When the path is empty, match the FULL path not just the prefix(default pathMatch value)
   {path: '', redirectTo: '/products', pathMatch: 'full'},
   //generic wildcard ** if it doesnt match any of the above routes
