@@ -13,6 +13,7 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   currentCategoryId: number = 1;
   currentCategoryName: string = "";
+  searchMode: boolean = false;
   //Inject our product service to this component, Inject the ActivatedRoute
   //The current active route that loaded the component. Useful for accessing route parameters
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
@@ -24,6 +25,29 @@ export class ProductListComponent implements OnInit {
   }
 
   listProducts() {
+    //check if this route has a parameter for keyword, if it does, it means we are performing a search
+    //{path: 'search/:keyword', ...}
+    this.searchMode = this.route.snapshot.paramMap.has('keyword');
+    if(this.searchMode){
+      this.handleSearchProducts();
+    }else{
+      this.handleListProducts();
+    }
+  }
+
+  handleSearchProducts() {
+    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+    //now searh for the products using keyword
+    //TODO: implement searchProducts() services;
+    this.productService.searchProducts(theKeyword).subscribe(
+      data=>{
+        this.products = data;
+        console.log(`Search data ${data}`);
+      }
+    )
+  }
+
+  handleListProducts(){
     //check if "id" parameter is available
     //this.use the activated route.state of route at this given moment in time.map of alll the route parameters
     const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id'); //'category/:id'
