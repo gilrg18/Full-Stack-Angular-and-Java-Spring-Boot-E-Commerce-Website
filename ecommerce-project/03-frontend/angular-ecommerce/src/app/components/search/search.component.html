@@ -1,1 +1,14 @@
-<p>search works!</p>
+<form class="form-header">
+  <!--#myInput template reference variable  -->
+  <!--(keyup.enter listen for the enter key)-->
+  <input
+    #myInput
+    type="text"
+    placeholder="Search for products ..."
+    class="au-input au-input-xl"
+    (keyup.enter)="doSearch(myInput.value)"
+  />
+  <button 
+  (click)="doSearch(myInput.value)"
+  class="au-btn-submit">Search</button>
+</form>
