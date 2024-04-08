@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductDetailsComponent implements OnInit {
   //Had to initialize product to avoid error
-  product: Product = new Product(1,'1','1','1',1,'1',true,1,new Date(),new Date());
+  product: Product = new Product(1,'1','Not Found!','1',1,'',true,1,new Date(),new Date());
 
   constructor(
     private productService: ProductService,
@@ -29,7 +29,7 @@ export class ProductDetailsComponent implements OnInit {
     //TODO: productService.getProduct(productid)
     this.productService.getProduct(theProductId).subscribe(
       data => {
-        console.log(`Product details: ${JSON.stringify(data)}`);
+        //console.log(`Product details: ${JSON.stringify(data)}`);
         this.product = data;
       }
     )

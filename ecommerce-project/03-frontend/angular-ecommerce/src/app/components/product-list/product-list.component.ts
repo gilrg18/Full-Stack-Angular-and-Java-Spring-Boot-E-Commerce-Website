@@ -42,7 +42,7 @@ export class ProductListComponent implements OnInit {
     this.productService.searchProducts(theKeyword).subscribe(
       data=>{
         this.products = data;
-        console.log(`Search data ${JSON.stringify(data)}`);
+        //console.log(`Search data ${JSON.stringify(data)}`);
       }
     )
   }
@@ -68,7 +68,7 @@ export class ProductListComponent implements OnInit {
       data => {
         //assign the data to the products array
         this.products = data;
-        console.log("Products:", this.products);
+        //console.log("Products:", this.products);
       }
     )
   }
