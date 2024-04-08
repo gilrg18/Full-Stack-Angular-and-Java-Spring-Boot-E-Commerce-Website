@@ -12,8 +12,15 @@ export class ProductListComponent implements OnInit {
 
   products: Product[] = [];
   currentCategoryId: number = 1;
+  previousCategoryId: number = 1;
   currentCategoryName: string = "";
   searchMode: boolean = false;
+
+  //New properties for pagination
+  thePageNumber: number = 1;
+  thePageSize: number = 10;
+  theTotalElements: number = 0;
+
   //Inject our product service to this component, Inject the ActivatedRoute
   //The current active route that loaded the component. Useful for accessing route parameters
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
@@ -62,16 +69,32 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = 1;
       this.currentCategoryName = 'Books'
     }
+
+    //Check if we have a different category than previous
+    //Angular will reuse a component if it is currently being viewed
+
+    //if we have a different category id than previous
+    //then set thePageNumber back to 1
+    if(this.previousCategoryId != this.currentCategoryId){
+      this.thePageNumber = 1;
+    }
+    this.previousCategoryId = this.currentCategoryId;
+    console.log(`currentCategoryId= ${this.currentCategoryId}, thePageNuber= ${this.thePageNumber}`);
+
     //Method is invoked once you 'subscribe'
     //Now get the products for the given category id
-    this.productService.getProductList(this.currentCategoryId).subscribe(
-      data => {
-        //assign the data to the products array
-        this.products = data;
-        //console.log("Products:", this.products);
-      }
-    )
+    this.productService.getProductListPaginate(this.thePageNumber-1,
+                                               this.thePageSize,
+                                               this.currentCategoryId)
+                                               .subscribe(
+                                                data=>{
+                                                  this.products = data._embedded.products;
+                                                  //SPRING DATA REST: pages are 0 based
+                                                  //Angular: pages are 1 based
+                                                  this.thePageNumber = data.page.number+1;
+                                                  this.thePageSize =data.page.size;
+                                                  this.theTotalElements = data.page.totalElements;
+                                                }
+                                               );
   }
-
-
 }
