@@ -29,7 +29,7 @@ export class ProductService {
     //build URL based on category id, page and size
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
                     + `&page=${thePage}&size=${thePageSize}`;
-    //console.log(searchUrl);
+    console.log(searchUrl);
     //Returns an observable, Map the JSON data from Spring Data REST to Product array
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }

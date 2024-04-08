@@ -79,7 +79,7 @@ export class ProductListComponent implements OnInit {
       this.thePageNumber = 1;
     }
     this.previousCategoryId = this.currentCategoryId;
-    console.log(`currentCategoryId= ${this.currentCategoryId}, thePageNuber= ${this.thePageNumber}`);
+    console.log(`currentCategoryId= ${this.currentCategoryId}, thePageNumber= ${this.thePageNumber}`);
 
     //Method is invoked once you 'subscribe'
     //Now get the products for the given category id
