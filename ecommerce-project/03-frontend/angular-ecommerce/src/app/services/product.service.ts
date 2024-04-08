@@ -8,12 +8,20 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root',
 })
 export class ProductService {
+
+
   //by default Spring Data Rest only return the first 20 items, change page size to 100 with ?size=100
   private baseUrl = 'http://localhost:8080/api/products';
 
   private categoryUrl = 'http://localhost:8080/api/product-category'
 
   constructor(private httpClient: HttpClient) {}
+
+  getProduct(theProductId: number): Observable<Product> {
+    //build the URL based on the productId
+    const productUrl = `${this.baseUrl}/${theProductId}`;
+    return this.httpClient.get<Product>(productUrl);
+  }
 
   getProductList(theCategoryId: number): Observable<Product[]> {
     //build URL based on category id

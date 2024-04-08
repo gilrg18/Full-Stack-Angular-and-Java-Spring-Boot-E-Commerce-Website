@@ -28,6 +28,7 @@ export class ProductDetailsComponent implements OnInit {
     //TODO: productService.getProduct(productid)
     this.productService.getProduct(theProductId).subscribe(
       data => {
+        console.log(`Product details: ${JSON.stringify(data)}`);
         this.product = data;
       }
     )
