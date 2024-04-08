@@ -9,7 +9,8 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent implements OnInit {
-  product!: Product;
+  //Had to initialize product to avoid error
+  product: Product = new Product(1,'1','1','1',1,'1',true,1,new Date(),new Date());
 
   constructor(
     private productService: ProductService,
