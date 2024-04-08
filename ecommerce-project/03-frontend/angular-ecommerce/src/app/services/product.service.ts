@@ -8,12 +8,10 @@ import { ProductCategory } from '../common/product-category';
   providedIn: 'root',
 })
 export class ProductService {
-
-
   //by default Spring Data Rest only return the first 20 items, change page size to 100 with ?size=100
   private baseUrl = 'http://localhost:8080/api/products';
 
-  private categoryUrl = 'http://localhost:8080/api/product-category'
+  private categoryUrl = 'http://localhost:8080/api/product-category';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -23,14 +21,15 @@ export class ProductService {
     return this.httpClient.get<Product>(productUrl);
   }
 
-  getProductListPaginate(thePage: number, 
-                         thePageSize:number, 
-                         theCategoryId: number): Observable<GetResponseProducts> {
-    //build URL based on category id, page and size
-    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`
-                    + `&page=${thePage}&size=${thePageSize}`;
+  getProductListPaginate(
+    thePage: number,
+    thePageSize: number,
+    theCategoryId: number
+  ): Observable<GetResponseProducts> {
+    const searchUrl =
+      `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}` +
+      `&page=${thePage}&size=${thePageSize}`;
     console.log(searchUrl);
-    //Returns an observable, Map the JSON data from Spring Data REST to Product array
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
 
@@ -42,13 +41,11 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
-
   getProductCategories(): Observable<ProductCategory[]> {
     return this.httpClient
       .get<GetResponseProductCategory>(this.categoryUrl)
       .pipe(map((response) => response._embedded.productCategory));
   }
-
 
   searchProducts(theKeyword: string): Observable<Product[]> {
     const trimmedKeyword = theKeyword.trim();
@@ -56,6 +53,18 @@ export class ProductService {
     return this.getProducts(searchUrl);
   }
 
+  searchProductsPaginate(
+    thePage: number,
+    thePageSize: number,
+    theKeyword: string
+  ): Observable<GetResponseProducts> {
+    const trimmedKeyword = theKeyword.trim();
+    const searchUrl =
+      `${this.baseUrl}/search/findByNameContaining?name=${trimmedKeyword}` +
+      `&page=${thePage}&size=${thePageSize}`;
+    console.log(searchUrl);
+    return this.httpClient.get<GetResponseProducts>(searchUrl);
+  }
 
   //Refactoring code into getProducts()
   private getProducts(searchUrl: string): Observable<Product[]> {
@@ -69,13 +78,13 @@ export class ProductService {
 interface GetResponseProducts {
   _embedded: {
     products: Product[];
-  },
+  };
   page: {
-    size: number,
-    totalElements: number,
-    totalPages: number,
-    number: number
-  }
+    size: number;
+    totalElements: number;
+    totalPages: number;
+    number: number;
+  };
 }
 
 interface GetResponseProductCategory {
@@ -83,4 +92,3 @@ interface GetResponseProductCategory {
     productCategory: ProductCategory[];
   };
 }
-
