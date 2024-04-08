@@ -44,13 +44,18 @@
                   <ngb-pagination [(page)]="thePageNumber"
                                   [pageSize]="thePageSize"
                                   [collectionSize]="theTotalElements"
+                                  [maxSize]="4"
+                                  [boundaryLinks]="true"
                                   (pageChange)="listProducts()">
                   </ngb-pagination>
+                  <!-- maxSize for maximum amount of displaying pages options so pagination options dont overlap -->
+                  <!-- boundaryLinks take you to the first and last page -->
                 </div>
 
                 <div class="col-md-3 mt-2" style="text-align: right;">
                   <span class="mr-2">Page Size</span>
                   <select #myPageSelect (change)="updatePageSize(myPageSelect.value)">
+                    <option>2</option>
                     <option selected = "true">5</option>
                     <option>10</option>
                     <option>20</option>
