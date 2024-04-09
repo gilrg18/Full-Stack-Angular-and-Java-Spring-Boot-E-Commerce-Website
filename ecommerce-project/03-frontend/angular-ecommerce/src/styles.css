@@ -697,6 +697,11 @@ table.table.table-bordered th{
     padding:7px;
     border: 1px solid #dee2e6; 
 }
+
+table, th, td {
+    border: 1px solid #dee2e6 !important;
+}
+
 .table-responsive{
     padding-right:1px
 }
