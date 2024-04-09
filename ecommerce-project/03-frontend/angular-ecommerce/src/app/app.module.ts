@@ -13,6 +13,7 @@ import { ProductDetailsComponent } from './components/product-details/product-de
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
+import { CartDetailsComponent } from './component/cart-details/cart-details.component';
 
 const routes: Routes = [
   //Path to match , when path matches - create a new instance of component
@@ -33,7 +34,8 @@ const routes: Routes = [
     ProductCategoryMenuComponent,
     SearchComponent,
     ProductDetailsComponent,
-    CartStatusComponent
+    CartStatusComponent,
+    CartDetailsComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
