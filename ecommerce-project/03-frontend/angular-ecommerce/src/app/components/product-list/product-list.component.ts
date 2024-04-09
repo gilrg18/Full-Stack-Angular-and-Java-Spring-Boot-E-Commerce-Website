@@ -119,7 +119,7 @@ export class ProductListComponent implements OnInit {
 
   //Update productlistcomponent with the click handler
   addToCart(theProduct: Product){
-    console.log(`Adding to cart: ${theProduct.name}, ${theProduct.unitPrice}`);
+    console.log(`Adding to cart: ${theProduct.id}, ${theProduct.name}, ${theProduct.unitPrice}`);
     const theCartItem = new CartItem(theProduct);
     this.cartService.addToCart(theCartItem);
   }
