@@ -31,7 +31,7 @@ export class CartService {
         }
       }
       //check if we found it
-      alreadyExistsInCart = (existingCartItem != undefined)
+      alreadyExistsInCart = (existingCartItem.id != -1)
     }
 
     if(alreadyExistsInCart){
