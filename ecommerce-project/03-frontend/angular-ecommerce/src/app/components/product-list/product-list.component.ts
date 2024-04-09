@@ -21,6 +21,8 @@ export class ProductListComponent implements OnInit {
   thePageSize: number = 5;
   theTotalElements: number = 0;
 
+  previousKeyword: string= "";
+
   //Inject our product service to this component, Inject the ActivatedRoute
   //The current active route that loaded the component. Useful for accessing route parameters
   constructor(private productService: ProductService, private route: ActivatedRoute) { }
@@ -44,14 +46,17 @@ export class ProductListComponent implements OnInit {
 
   handleSearchProducts() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+
+    //if we have a different keyword than previous
+    //then set thePageNumber to 1
+    if(this.previousKeyword!= theKeyword){
+      this.thePageNumber=1;
+    }
+    this.previousKeyword=theKeyword;
+    console.log(`keyword: ${theKeyword}, thePageNumber: ${this.thePageNumber}`);
     //now searh for the products using keyword
-    //TODO: implement searchProducts() services;
-    this.productService.searchProducts(theKeyword).subscribe(
-      data=>{
-        this.products = data;
-        //console.log(`Search data ${JSON.stringify(data)}`);
-      }
-    )
+    this.productService.searchProductsPaginate(this.thePageNumber - 1,
+      this.thePageSize, theKeyword).subscribe(this.processResult());
   }
 
   handleListProducts(){
@@ -87,14 +92,8 @@ export class ProductListComponent implements OnInit {
                                                this.thePageSize,
                                                this.currentCategoryId)
                                                .subscribe(
-                                                data=>{
-                                                  this.products = data._embedded.products;
-                                                  //SPRING DATA REST: pages are 0 based
-                                                  //Angular: pages are 1 based
-                                                  this.thePageNumber = data.page.number+1;
-                                                  this.thePageSize =data.page.size;
-                                                  this.theTotalElements = data.page.totalElements;
-                                                }
+                                                //refactoring this data
+                                               this.processResult()
                                                );
   }
 
@@ -102,5 +101,15 @@ export class ProductListComponent implements OnInit {
     this.thePageSize = +pageSize;  
     this.thePageNumber = 1;
     this.listProducts();
+  }
+
+  processResult(){
+    //take the json response and map it to fields in this class
+    return (data: any) => {
+      this.products = data._embedded.products;
+      this.thePageNumber = data.page.number + 1;
+      this.thePageSize =data.page.size;
+      this.theTotalElements = data.page.totalElements;
+    };
   }
 }
