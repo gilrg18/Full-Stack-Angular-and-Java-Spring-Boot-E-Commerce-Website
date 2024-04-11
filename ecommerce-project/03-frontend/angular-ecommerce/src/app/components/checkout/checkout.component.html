@@ -1,7 +1,11 @@
 <div class="main-content page-m">
   <div class="section-content section-content-p30">
     <div class="container-fluid">
-      <form class="checkoutForm" [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
+      <form
+        class="checkoutForm"
+        [formGroup]="checkoutFormGroup"
+        (ngSubmit)="onSubmit()"
+      >
         <!--Custom form group-->
         <!-- customer is the name of the key in form group -->
         <div formGroupName="customer" class="form-area">
@@ -194,7 +198,9 @@
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="expirationMonth">
-                  <option>TO DO</option>
+                  <option *ngFor="let month of creditCardMonths">
+                    {{ month }}
+                  </option>
                 </select>
               </div>
             </div>
@@ -204,7 +210,9 @@
             <div class="col-md-9">
               <div class="input-space">
                 <select formControlName="expirationYear">
-                  <option>TO DO</option>
+                    <option *ngFor="let year of creditCardYears">
+                        {{ year }}
+                      </option>
                 </select>
               </div>
             </div>
@@ -213,10 +221,10 @@
 
         <!-- Order Details -->
         <div class="form-area">
-            <h3>Review Your Order</h3>
-            <p>Total Quantity: {{totalQuantity}}</p>
-            <p>Shipping: FREE</p>
-            <P>Total Price: {{totalPrice | currency: 'USD'}}</P>
+          <h3>Review Your Order</h3>
+          <p>Total Quantity: {{ totalQuantity }}</p>
+          <p>Shipping: FREE</p>
+          <P>Total Price: {{ totalPrice | currency : "USD" }}</P>
         </div>
 
         <!--Submit button-->

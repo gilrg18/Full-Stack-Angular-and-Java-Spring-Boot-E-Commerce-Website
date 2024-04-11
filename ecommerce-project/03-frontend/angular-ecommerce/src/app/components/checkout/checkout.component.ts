@@ -53,7 +53,9 @@ export class CheckoutComponent implements OnInit {
     });
 
     //Populate credit card months
-    const startMonth: number = new Date().getMonth() + 1;//months are 0 based so add +1
+    //this handles the case when the expiring date is the current year, but we really want all 12 months
+    //const startMonth: number = new Date().getMonth() + 1;//months are 0 based so add +1
+    const startMonth: number = 1;
     this.ecommerceShopFormService.getCreditCardMonths(startMonth).subscribe(data=>{
       console.log(`Credit card months: ${JSON.stringify(data)}`);
       this.creditCardMonths = data;
