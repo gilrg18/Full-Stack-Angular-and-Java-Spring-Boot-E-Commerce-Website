@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { EcommerceShopFormService } from 'src/app/services/ecommerce-shop-form.service';
 
 @Component({
   selector: 'app-checkout',
@@ -8,11 +9,15 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CheckoutComponent implements OnInit {
   checkoutFormGroup!: FormGroup;
-  
+
   totalPrice: number = 0;
   totalQuantity: number = 0;
 
-  constructor(private formBuilder: FormBuilder) {}
+  creditCardYears: number[] = [];
+  creditCardMonths: number[] = [];
+
+  constructor(private formBuilder: FormBuilder, 
+              private ecommerceShopFormService: EcommerceShopFormService) {}
 
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
@@ -46,6 +51,19 @@ export class CheckoutComponent implements OnInit {
         expirationYear: [''],
       }),
     });
+
+    //Populate credit card months
+    const startMonth: number = new Date().getMonth() + 1;//months are 0 based so add +1
+    this.ecommerceShopFormService.getCreditCardMonths(startMonth).subscribe(data=>{
+      console.log(`Credit card months: ${JSON.stringify(data)}`);
+      this.creditCardMonths = data;
+    })
+    //Populate credit card years
+    this.ecommerceShopFormService.getCreditCardYears().subscribe(data=>{
+      console.log(`Credit card years: ${JSON.stringify(data)}`);
+      this.creditCardYears = data;
+    })
+    
   }
   
   copyShippingAddressToBillingAddress(event:Event){
