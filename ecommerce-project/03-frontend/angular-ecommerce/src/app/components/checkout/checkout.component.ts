@@ -14,6 +14,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkoutFormGroup = this.formBuilder.group({
+      //customer is the name of the key of this formgroup
       customer: this.formBuilder.group({
         //key:[initial value]
         firstName: [''],
