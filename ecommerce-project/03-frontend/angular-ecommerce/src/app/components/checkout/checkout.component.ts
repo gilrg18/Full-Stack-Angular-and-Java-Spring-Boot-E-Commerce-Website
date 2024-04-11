@@ -31,7 +31,7 @@ export class CheckoutComponent implements OnInit {
         street: [''],
         city: [''],
         state: [''],
-        county: [''],
+        country: [''],
         zipCode: [''],
       }),
       creditCard: this.formBuilder.group({
@@ -44,10 +44,21 @@ export class CheckoutComponent implements OnInit {
       }),
     });
   }
+  
+  copyShippingAddressToBillingAddress(event:Event){
+    const isChecked = (<HTMLInputElement>event.target).checked;
+    if(isChecked){
+      this.checkoutFormGroup.controls['billingAddress']
+        .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+    }else{
+      this.checkoutFormGroup.controls['billingAddress'].reset();
+    }
+  }
 
   onSubmit() {
     console.log('Handling the submit button');
     console.log(this.checkoutFormGroup.get('customer')!.value);
     console.log('Email: ', this.checkoutFormGroup.get('customer')!.value.email);
   }
+
 }
