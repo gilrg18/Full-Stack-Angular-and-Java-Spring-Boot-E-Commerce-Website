@@ -271,6 +271,12 @@ input.au-input.au-input-xl{
     margin-left:11px
 }
 
+/* Checkout form personalizado */
+.checkoutForm {
+    width: 60%; /* Or any other initial width */
+    /* margin: 0 auto; Center the element */
+  }
+
 .form-header{
     display:-webkit-box;
     display:-webkit-flex;
@@ -1046,3 +1052,11 @@ footer ul li{
         padding:8px 0
     }
 }
+
+/* checkoutForm Personalizado */
+@media (max-width:717px){
+    .checkoutForm {
+      width: 90%; 
+      margin: 0 auto;
+    }
+  }
