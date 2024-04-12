@@ -1,5 +1,6 @@
 package com.gilrg.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class Country {
 
     //Set up one-to-many with states
     @OneToMany(mappedBy = "country")
+    @JsonIgnore  //Modification to only retrieve countries without the list of states
     private List<State> states;
 
 }
