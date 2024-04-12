@@ -1,7 +1,7 @@
 export class State {
     constructor(
         public id: number,
-        public nam: string
+        public name: string
     ){}
 }
 

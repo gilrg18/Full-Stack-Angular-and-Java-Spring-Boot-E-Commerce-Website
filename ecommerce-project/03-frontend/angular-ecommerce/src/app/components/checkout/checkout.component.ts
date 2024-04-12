@@ -87,8 +87,10 @@ export class CheckoutComponent implements OnInit {
     if(isChecked){
       this.checkoutFormGroup.controls['billingAddress']
         .setValue(this.checkoutFormGroup.controls['shippingAddress'].value);
+      this.billingAddressStates = this.shippingAddressStates;
     }else{
       this.checkoutFormGroup.controls['billingAddress'].reset();
+      this.billingAddressStates = [];
     }
   }
 
@@ -132,10 +134,12 @@ export class CheckoutComponent implements OnInit {
           this.shippingAddressStates = data;
           console.log(`shippingAddressStates: ${JSON.stringify(data)}`);
         }
-        if(formGroupName==='billingAddress'){
+        else{
           this.billingAddressStates = data;
           console.log(`shippingAddressStates: ${JSON.stringify(data)}`);
         }
+        //select first item by default
+        formGroup?.get('state')?.setValue(data[0]);
       }
     )
   }
