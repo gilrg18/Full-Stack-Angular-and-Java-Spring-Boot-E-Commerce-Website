@@ -16,4 +16,6 @@ public interface StateRepository extends JpaRepository<State, Integer> {
     //Retrieve states for a given country
     //http://localhost:8080/api/states/search/findByCountryCode?code=IN
     List<State> findByCountryCode(@Param("code") String code);
+
+
 }
