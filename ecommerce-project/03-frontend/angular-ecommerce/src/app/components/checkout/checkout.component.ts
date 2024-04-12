@@ -99,6 +99,9 @@ export class CheckoutComponent implements OnInit {
     console.log('Handling the submit button');
     console.log(this.checkoutFormGroup.get('customer')!.value);
     console.log('Email: ', this.checkoutFormGroup.get('customer')!.value.email);
+    console.log('Shipping Address Country:', this.checkoutFormGroup.get('shippingAddress')!.value.country.name);
+    console.log('Shipping Address State:', this.checkoutFormGroup.get('shippingAddress')!.value.state.name);
+
   }
   
   handleMonthsAndYears(){
@@ -125,8 +128,8 @@ export class CheckoutComponent implements OnInit {
     const countryCode = formGroup?.value.country.code;
     const countryName = formGroup?.value.country.name;
 
-    console.log(`{formGroupName} country code: ${countryCode}`);
-    console.log(`{formGroupName} country name: ${countryName}}`);
+    console.log(`${formGroupName} country code: ${countryCode}`);
+    console.log(`${formGroupName} country name: ${countryName}`);
 
     this.ecommerceShopFormService.getStates(countryCode).subscribe(
       data => {
