@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Country } from 'src/app/common/country';
 import { EcommerceShopFormService } from 'src/app/services/ecommerce-shop-form.service';
 
 @Component({
@@ -16,6 +17,7 @@ export class CheckoutComponent implements OnInit {
   creditCardYears: number[] = [];
   creditCardMonths: number[] = [];
 
+  countries: Country[] = [];
   constructor(private formBuilder: FormBuilder, 
               private ecommerceShopFormService: EcommerceShopFormService) {}
 
@@ -66,6 +68,13 @@ export class CheckoutComponent implements OnInit {
       this.creditCardYears = data;
     })
     
+    //Populate countries
+    this.ecommerceShopFormService.getCountries().subscribe(
+      data=>{
+        console.log(`Retrieved countries: ${JSON.stringify(data)}`);
+        this.countries = data;
+      }
+    )
   }
   
   copyShippingAddressToBillingAddress(event:Event){
@@ -103,4 +112,5 @@ export class CheckoutComponent implements OnInit {
       }
     )
   }
+
 }
