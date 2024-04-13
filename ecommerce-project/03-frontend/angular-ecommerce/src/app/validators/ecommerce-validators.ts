@@ -9,7 +9,9 @@ export class EcommerceValidators {
             //invalid, return error object
             return { 'notOnlyWhiteSpace': true}
         }
-        //if the validation check Passes, return null
-        return null;
+        else{
+            //if the validation check Passes, return null
+            return null;
+        }
     }
 }
