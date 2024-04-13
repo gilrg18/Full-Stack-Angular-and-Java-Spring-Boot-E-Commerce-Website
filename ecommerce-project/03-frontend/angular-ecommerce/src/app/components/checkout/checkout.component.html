@@ -16,6 +16,15 @@
               <div class="input-space">
                 <!-- firstName: name of control in form group -->
                 <input formControlName="firstName" type="text" />
+                <!-- invalid: did validations fail?, dirty: did user change field value?, touched: did field loose focus?-->
+                <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="alert alert-danger mt-1">
+                    <div *ngIf="firstName?.errors!['required']">
+                        First Name is required.
+                    </div>
+                    <div *ngIf="firstName?.errors!['minLength']">
+                        First Name must be at least 2 characters long.
+                    </div>
+                </div>
               </div>
             </div>
           </div>
