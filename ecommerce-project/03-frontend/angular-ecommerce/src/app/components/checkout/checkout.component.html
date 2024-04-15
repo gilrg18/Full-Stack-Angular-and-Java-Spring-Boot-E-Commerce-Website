@@ -97,6 +97,9 @@
                   <div *ngIf="shippingAddressStreet?.errors!['required'] || shippingAddressStreet?.errors!['notOnlyWhitespace']">
                       Street is required.
                   </div>
+                  <div *ngIf="shippingAddressStreet?.errors!['minlength']">
+                    At least 2 characters are required.
+                  </div>
               </div>
               </div>
             </div>
@@ -110,6 +113,9 @@
                 <div *ngIf="shippingAddressCity?.invalid && (shippingAddressCity?.dirty || shippingAddressCity?.touched)" class="alert alert-danger mt-1">
                   <div *ngIf="shippingAddressCity?.errors!['required'] || shippingAddressCity?.errors!['notOnlyWhitespace']">
                       City is required.
+                  </div>
+                  <div *ngIf="shippingAddressCity?.errors!['minlength']">
+                    At least 2 characters are required.
                   </div>
               </div>
               </div>
@@ -195,6 +201,9 @@
                   <div *ngIf="billingAddressStreet?.errors!['required'] || billingAddressStreet?.errors!['notOnlyWhitespace']">
                       Street is required.
                   </div>
+                  <div *ngIf="billingAddressStreet?.errors!['minlength']">
+                    At least 2 characters are required.
+                  </div>
               </div>
               </div>
             </div>
@@ -208,6 +217,9 @@
                 <div *ngIf="billingAddressCity?.invalid && (billingAddressCity?.dirty || billingAddressCity?.touched)" class="alert alert-danger mt-1">
                   <div *ngIf="billingAddressCity?.errors!['required'] || billingAddressCity?.errors!['notOnlyWhitespace']">
                       City is required.
+                  </div>
+                  <div *ngIf="billingAddressCity?.errors!['minlength']">
+                    At least 2 characters are required.
                   </div>
               </div>
               </div>
