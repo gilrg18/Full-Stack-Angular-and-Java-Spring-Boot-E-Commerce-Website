@@ -37,6 +37,7 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.reviewCartDetails();
     this.checkoutFormGroup = this.formBuilder.group({
       //customer is the name of the key of this formgroup
       customer: this.formBuilder.group({
@@ -108,8 +109,14 @@ export class CheckoutComponent implements OnInit {
           Validators.minLength(2),
           EcommerceValidators.notOnlyWhitespace,
         ]),
-        cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]), //only numbers,16 digits
-        securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
+        cardNumber: new FormControl('', [
+          Validators.required,
+          Validators.pattern('[0-9]{16}'),
+        ]), //only numbers,16 digits
+        securityCode: new FormControl('', [
+          Validators.required,
+          Validators.pattern('[0-9]{3}'),
+        ]),
         expirationMonth: [''],
         expirationYear: [''],
       }),
@@ -195,8 +202,6 @@ export class CheckoutComponent implements OnInit {
     return this.checkoutFormGroup.get('creditCard.securityCode');
   }
 
-
-
   copyShippingAddressToBillingAddress(event: Event) {
     const isChecked = (<HTMLInputElement>event.target).checked;
     if (isChecked) {
@@ -268,6 +273,16 @@ export class CheckoutComponent implements OnInit {
       }
       //select first item by default
       formGroup?.get('state')?.setValue(data[0]);
+    });
+  }
+
+  reviewCartDetails() {
+    //subscribe to cartService.totalQuantity and cartService.totalPrice
+    this.cartService.totalQuantity.subscribe((totalQuantity) => {
+      this.totalQuantity = totalQuantity;
+    });
+    this.cartService.totalPrice.subscribe((totalPrice) => {
+      this.totalPrice = totalPrice;
     });
   }
 }
