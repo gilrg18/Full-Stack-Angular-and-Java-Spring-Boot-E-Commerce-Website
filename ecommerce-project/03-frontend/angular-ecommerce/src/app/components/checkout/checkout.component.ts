@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
+import { CartService } from 'src/app/services/cart.service';
 import { EcommerceShopFormService } from 'src/app/services/ecommerce-shop-form.service';
 import { EcommerceValidators } from 'src/app/validators/ecommerce-validators';
 
@@ -31,7 +32,8 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private ecommerceShopFormService: EcommerceShopFormService
+    private ecommerceShopFormService: EcommerceShopFormService,
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {
