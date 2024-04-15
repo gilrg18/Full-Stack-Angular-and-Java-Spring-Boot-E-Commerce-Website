@@ -7,7 +7,7 @@ export class EcommerceValidators {
         //check if string only contains whitespace
         if((control.value != null) && (control.value.trim().length === 0)){
             //invalid, return error object
-            return { 'notOnlyWhiteSpace': true}
+            return { 'notOnlyWhitespace': true}
         }
         else{
             //if the validation check Passes, return null
