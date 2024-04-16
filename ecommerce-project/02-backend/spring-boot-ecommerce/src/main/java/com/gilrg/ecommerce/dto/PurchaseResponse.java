@@ -2,8 +2,8 @@ package com.gilrg.ecommerce.dto;
 
 import lombok.Data;
 
-@Data
+@Data //data will generate constructor for FINAL fields
 public class PurchaseResponse {
-    private String orderTrackingNumber;
+    private final String orderTrackingNumber;
 
 }
