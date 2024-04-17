@@ -6,9 +6,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Address } from 'src/app/common/address';
 import { Country } from 'src/app/common/country';
+import { Customer } from 'src/app/common/customer';
 import { Order } from 'src/app/common/order';
 import { OrderItem } from 'src/app/common/order-item';
+import { Purchase } from 'src/app/common/purchase';
 import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
@@ -233,7 +236,6 @@ export class CheckoutComponent implements OnInit {
 
     //get cart items
     const cartItems = this.cartService.cartItems;
-
     //create orderItems from cartItems
     //long way
     // let orderItems: OrderItem[] = [];
@@ -243,15 +245,26 @@ export class CheckoutComponent implements OnInit {
     //short way
     let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem))
 
-    //set up purchase
-
+    //SET UP PURCHASE:
     //populate purchase - customer
+    const customer : Customer = this.checkoutFormGroup.controls['customer'].value;
     
     //populate purchase - shipping address
-
+    const purchaseShippingAddress : Address = this.checkoutFormGroup.controls['shippingAddress'].value;
+    const shippingState: State = JSON.parse(JSON.stringify(purchaseShippingAddress.state));
+    const shippingCountry: Country = JSON.parse(JSON.stringify(purchaseShippingAddress.country))
+    purchaseShippingAddress.state = shippingState.name;
+    purchaseShippingAddress.country = shippingCountry.name;
+    
     //populate purchase - billing address
+    const purchaseBillingAddress : Address = this.checkoutFormGroup.controls['billingAddress'].value;
+    const billingState: State = JSON.parse(JSON.stringify(purchaseBillingAddress.state));
+    const billingCountry: Country = JSON.parse(JSON.stringify(purchaseBillingAddress.country))
+    purchaseBillingAddress.state = billingState.name;
+    purchaseBillingAddress.country = billingCountry.name;
 
-    //populate purhcase - order and orderItems
+    //populate purchase - order and orderItems
+    let purchase = new Purchase(customer, purchaseShippingAddress, purchaseBillingAddress, order, orderItems);
 
     //call Rest API via the CheckoutService
 
