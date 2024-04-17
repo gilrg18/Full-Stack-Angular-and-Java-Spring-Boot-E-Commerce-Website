@@ -5,9 +5,11 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Country } from 'src/app/common/country';
 import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
+import { CheckoutService } from 'src/app/services/checkout.service';
 import { EcommerceShopFormService } from 'src/app/services/ecommerce-shop-form.service';
 import { EcommerceValidators } from 'src/app/validators/ecommerce-validators';
 
@@ -33,7 +35,9 @@ export class CheckoutComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private ecommerceShopFormService: EcommerceShopFormService,
-    private cartService: CartService
+    private cartService: CartService,
+    private checkoutService: CheckoutService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -216,22 +220,30 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Handling the submit button');
 
     if (this.checkoutFormGroup.invalid) {
       //touching all the fields triggers the display of the error messages
       this.checkoutFormGroup.markAllAsTouched();
+      return;
     }
-    console.log(this.checkoutFormGroup.get('customer')!.value);
-    console.log('Email: ', this.checkoutFormGroup.get('customer')!.value.email);
-    console.log(
-      'Shipping Address Country:',
-      this.checkoutFormGroup.get('shippingAddress')!.value.country.name
-    );
-    console.log(
-      'Shipping Address State:',
-      this.checkoutFormGroup.get('shippingAddress')!.value.state.name
-    );
+    //set up order
+
+    //get cart items
+
+    //create orderItems from cartItems
+
+    //set up purchase
+
+    //populate purchase - customer
+    
+    //populate purchase - shipping address
+
+    //populate purchase - billing address
+
+    //populate purhcase - order and orderItems
+
+    //call Rest API via the CheckoutService
+
   }
 
   handleMonthsAndYears() {
