@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Country } from 'src/app/common/country';
+import { Order } from 'src/app/common/order';
+import { OrderItem } from 'src/app/common/order-item';
 import { State } from 'src/app/common/state';
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
@@ -227,10 +229,19 @@ export class CheckoutComponent implements OnInit {
       return;
     }
     //set up order
+    let order = new Order(this.totalQuantity,this.totalPrice);
 
     //get cart items
+    const cartItems = this.cartService.cartItems;
 
     //create orderItems from cartItems
+    //long way
+    // let orderItems: OrderItem[] = [];
+    // for(let i = 0; i < cartItems.length; i++){
+    //   orderItems[i] = new OrderItem(cartItems[i]);
+    // }
+    //short way
+    let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem))
 
     //set up purchase
 
