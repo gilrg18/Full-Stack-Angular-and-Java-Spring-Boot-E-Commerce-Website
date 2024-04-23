@@ -35,7 +35,12 @@ export class LoginStatusComponent implements OnInit {
     }
   }
 
-  logout(){
+  /*
+  Okta is not providing signup option for developer accounts. 
+
+  If we need the signup option, we should use a business account.
+  */
+  logout() {
     //Terminate the session with Okta and removes the current tokens.
     this.oktaAuth.signOut();
   }
