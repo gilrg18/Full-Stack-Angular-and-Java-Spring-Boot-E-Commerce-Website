@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injector, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -6,7 +6,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 
-import {Routes, RouterModule} from '@angular/router';
+import {Routes, RouterModule, Router} from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
 import { SearchComponent } from './components/search/search.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
@@ -19,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { LoginStatusComponent } from './components/login-status/login-status.component';
 
-import {OktaAuthModule, OktaCallbackComponent, OKTA_CONFIG} from '@okta/okta-angular'
+import {OktaAuthModule, OktaCallbackComponent, OKTA_CONFIG, OktaAuthGuard} from '@okta/okta-angular'
 import {OktaAuth} from '@okta/okta-auth-js'
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
@@ -27,7 +27,20 @@ import { MembersPageComponent } from './components/members-page/members-page.com
 const oktaConfig = myAppConfig.oidc;
 const oktaAuth = new OktaAuth(oktaConfig);
 
+function sendToLoginPage(oktaAuth: OktaAuth, injector: Injector){
+  //Use injector to access any service available within your application, 
+  //in this case, the service for the router
+  const router = injector.get(Router)
+
+  //Redirect the user to your custom login page
+  router.navigate(['/login']);
+}
+
 const routes: Routes = [
+  //If authenticated, give access to the route, else send the user to the login page.
+  {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard],
+                    data: {onAuthRequired: sendToLoginPage}
+  },
   //Path to match , when path matches - create a new instance of component
   //Once the user is authenticated, they are redirected to your app, Normally you would need to parse
   //the response and store the OAth + OIDC tokens. The OktaCallbackComponent does this for you.
