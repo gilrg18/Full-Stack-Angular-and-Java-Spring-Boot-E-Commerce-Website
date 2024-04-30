@@ -15,8 +15,10 @@ export class CartService {
   totalPrice: Subject<number> = new BehaviorSubject<number>(0);
   totalQuantity: Subject<number> = new BehaviorSubject<number>(0)
 
-  //sessionStorage is a reference to the web browsers session storage
-  storage: Storage = sessionStorage;
+  //sessionStorage/localStorage is a reference to the web browsers session storage
+  //storage: Storage = sessionStorage;
+  //Local storage persists data even if you close the browser
+  storage: Storage = localStorage;
 
   constructor() { 
     //this.cartItems = JSON.parse(sessionStorage.getItem('cartItems')!) != null ? JSON.parse(sessionStorage.getItem('cartItems')!):[];
@@ -29,7 +31,7 @@ export class CartService {
   }
 
   persistCartItems(){
-    sessionStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+    this.storage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 
   addToCart(theCartItem: CartItem){
