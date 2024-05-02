@@ -7,6 +7,7 @@ import com.gilrg.ecommerce.entity.State;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
@@ -19,6 +20,9 @@ import java.util.Set;
 
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
+    //@Value to get property from application.properties
+    @Value("${allowed.origins}")
+    private String[] theAllowedOrigins;
 
     //Right now entities(products) dont have ids in the response, so we will be adding those ids
     private EntityManager entityManager;
@@ -46,7 +50,7 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         exposeIds(config);
 
         //Configure cors mapping for spring data rest
-        cors.addMapping(  "/api/**" ).allowedOrigins("http://localhost:4200");
+        cors.addMapping(  config.getBasePath() + "/**" ).allowedOrigins(theAllowedOrigins);
         //Now we can remove the @CrossOrigin from JpaRepositories
     }
 
