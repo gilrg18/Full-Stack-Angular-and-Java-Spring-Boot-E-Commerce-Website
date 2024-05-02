@@ -44,6 +44,10 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
 
         //Call an internal helper method to helps us expose the ids
         exposeIds(config);
+
+        //Configure cors mapping for spring data rest
+        cors.addMapping(  "/api/**" ).allowedOrigins("http://localhost:4200");
+        //Now we can remove the @CrossOrigin from JpaRepositories
     }
 
     //Making the country/states read only beause we dont want to modify them
