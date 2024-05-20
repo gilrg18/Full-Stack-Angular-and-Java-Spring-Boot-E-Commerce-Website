@@ -42,6 +42,9 @@ const routes: Routes = [
   {path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard],
                     data: {onAuthRequired: sendToLoginPage}
   },
+  {path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard],
+                    data: {onAuthRequired: sendToLoginPage}
+  },
   //Path to match , when path matches - create a new instance of component
   //Once the user is authenticated, they are redirected to your app, Normally you would need to parse
   //the response and store the OAth + OIDC tokens. The OktaCallbackComponent does this for you.
