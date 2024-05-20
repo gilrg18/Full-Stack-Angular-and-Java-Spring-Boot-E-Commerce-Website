@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/common/address';
+import { CartItem } from 'src/app/common/cart-item';
 import { Country } from 'src/app/common/country';
 import { Customer } from 'src/app/common/customer';
 import { Order } from 'src/app/common/order';
@@ -38,7 +39,7 @@ export class CheckoutComponent implements OnInit {
   billingAddressStates: State[] = [];
 
   storage: Storage = sessionStorage;
-
+  locStorage: Storage = localStorage;
   constructor(
     private formBuilder: FormBuilder,
     private ecommerceShopFormService: EcommerceShopFormService,
@@ -294,7 +295,8 @@ export class CheckoutComponent implements OnInit {
     this.cartService.totalQuantity.next(0);
     //reset form data
     this.checkoutFormGroup.reset();
-    
+    const resettedCart: CartItem[] = [];;
+    this.locStorage.setItem('cartItems', JSON.stringify(resettedCart));
     //navigate back to the products page
     this.router.navigateByUrl("/products");
   }
